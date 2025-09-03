@@ -9,10 +9,11 @@
   },
   "cuda12": {
     "version": "1.2.0",
-    "url": "https://zenodo.org/records/17036673/files/app.exe?download=1",
+    "url": "https://zenodo.org/records/17047280/files/app_cuda118.exe?download=1",
     "filename": "app.exe"
   }
 }
+
 
 
 
