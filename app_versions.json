@@ -1,20 +1,56 @@
 {
+  "cuda118": {
+    "windows": {
+      "version": "0.1.0",
+      "url": "https://zenodo.org/records/17047280/files/app_cuda118.exe?download=1",
+      "filename": "app_cuda118_windows.exe"
+    },
+    "linux": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cuda118_linux_0.1.0",
+      "filename": "app_cuda118_linux"
+    },
+    "macos": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cuda118_macos_0.1.0",
+      "filename": "app_cuda118_macos"
+    }
+  },
+  "cuda121": {
+    "windows": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cuda121_windows_0.1.0.exe",
+      "filename": "app_cuda121_windows.exe"
+    },
+    "linux": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cuda121_linux_0.1.0",
+      "filename": "app_cuda121_linux"
+    },
+    "macos": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cuda121_macos_0.1.0",
+      "filename": "app_cuda121_macos"
+    }
+  },
   "cpu": {
-    "version": "1.2.0",
-    "url": "https://yourserver.com/app_cpu_1.2.0.exe"
-  },
-  "cuda11": {
-    "version": "1.2.0",
-    "url": "https://yourserver.com/app_cuda11_1.2.0.exe"
-  },
-  "cuda12": {
-    "version": "1.2.0",
-    "url": "https://zenodo.org/records/17047280/files/app_cuda118.exe?download=1",
-    "filename": "app_cuda118.exe"
+    "windows": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cpu_windows_0.1.0.exe",
+      "filename": "app_cpu_windows.exe"
+    },
+    "linux": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cpu_linux_0.1.0",
+      "filename": "app_cpu_linux"
+    },
+    "macos": {
+      "version": "0.1.0",
+      "url": "https://yourserver.com/app_cpu_macos_0.1.0",
+      "filename": "app_cpu_macos"
+    }
   }
-}
-
-
+} 
 
 
 
