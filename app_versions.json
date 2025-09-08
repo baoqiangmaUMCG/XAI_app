@@ -2,7 +2,7 @@
   "cuda118": {
     "windows": {
       "version": "0.1.0",
-      "url": "https://zenodo.org/records/17047280/files/app_cuda118.exe?download=1",
+      "url": "https://zenodo.org/records/17080564/files/app_cuda118_windows.exe?download=1",
       "filename": "app_cuda118_windows.exe"
     },
     "linux": {
@@ -19,7 +19,7 @@
   "cuda124": {
     "windows": {
       "version": "0.1.0",
-      "url": "https://yourserver.com/app_cuda124_windows_0.1.0.exe",
+      "url": "https://zenodo.org/records/17080564/files/app_cuda124_windows.exe?download=1", 
       "filename": "app_cuda121_windows.exe"
     },
     "linux": {
@@ -36,7 +36,7 @@
   "cpu": {
     "windows": {
       "version": "0.1.0",
-      "url": "https://yourserver.com/app_cpu_windows_0.1.0.exe",
+      "url": "https://zenodo.org/records/17080564/files/app_cpu_windows.exe?download=1",
       "filename": "app_cpu_windows.exe"
     },
     "linux": {
@@ -51,6 +51,7 @@
     }
   }
 } 
+
 
 
 
