@@ -1,0 +1,6 @@
+-r requirements_runtime_common.txt
+
+# macOS auto-enables MPS if Apple Silicon GPU is present
+torch==2.6.0
+torchvision==0.21.0
+torchaudio==2.6.0
