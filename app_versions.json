@@ -16,20 +16,20 @@
       "filename": "app_cuda118_macos"
     }
   },
-  "cuda121": {
+  "cuda124": {
     "windows": {
       "version": "0.1.0",
-      "url": "https://yourserver.com/app_cuda121_windows_0.1.0.exe",
+      "url": "https://yourserver.com/app_cuda124_windows_0.1.0.exe",
       "filename": "app_cuda121_windows.exe"
     },
     "linux": {
       "version": "0.1.0",
-      "url": "https://yourserver.com/app_cuda121_linux_0.1.0",
+      "url": "https://yourserver.com/app_cuda124_linux_0.1.0",
       "filename": "app_cuda121_linux"
     },
     "macos": {
       "version": "0.1.0",
-      "url": "https://yourserver.com/app_cuda121_macos_0.1.0",
+      "url": "https://yourserver.com/app_cuda124_macos_0.1.0",
       "filename": "app_cuda121_macos"
     }
   },
@@ -51,6 +51,7 @@
     }
   }
 } 
+
 
 
 
