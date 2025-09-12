@@ -10,7 +10,7 @@ XAI + Evaluation App (Gradio, PyTorch, Captum)
 
 Run:  `CUDA_VISIBLE_DEVICES=0 python app.py`
 """
-
+ 
 import io
 import json
 import os, shutil, time
@@ -19,11 +19,23 @@ from typing import Any, Dict, List, Optional, Tuple
 
 import numpy as np
 from PIL import Image
-
+# Let code to find cudnn for linux
 import os, sys
-if getattr(sys, 'frozen', False):
-    lib_dir = os.path.join(sys._MEIPASS, "torch", "lib")
-    os.environ["LD_LIBRARY_PATH"] = lib_dir + ":" + os.environ.get("LD_LIBRARY_PATH", "")
+if getattr(sys, "frozen", False):
+    candidates = [
+        os.path.join(sys._MEIPASS, "torch", "lib"),             # onefile
+        os.path.join(sys._MEIPASS, "_internal", "torch", "lib") # onedir
+    ]
+    for lib_dir in candidates:
+        if os.path.isdir(lib_dir):
+            os.environ["LD_LIBRARY_PATH"] = lib_dir + ":" + os.environ.get("LD_LIBRARY_PATH", "")
+            try:
+                import ctypes
+                ctypes.CDLL("libcudnn.so.9", mode=ctypes.RTLD_GLOBAL)  # preload cudnn
+            except OSError as e:
+                print("Warning: cudnn preload failed:", e)
+            break
+
 
 import torch
 import torch.nn.functional as F
@@ -282,7 +294,7 @@ def load_transformer_model(model_name: str) -> LoadedModel:
     model = HFModelWrapper(hf_model)  # wrap so Captum sees tensor
     processor = AutoImageProcessor.from_pretrained(model_name)
 
-    # âš ï¸ Transformers donâ€™t have conv maps â†’ disable Grad-CAM
+    # ⚠️ Transformers don’t have conv maps → disable Grad-CAM
     target_layer = None
     print(f"[INFO] Grad-CAM disabled for Transformer model {model_name}")
 
@@ -310,7 +322,7 @@ def load_custom_architecture(py_file, st_file=None) -> LoadedModel:
         except Exception as e:
             raise gr.Error(f"Failed to load SafeTensors: {e}")
     else:
-        print("No SafeTensors uploaded â†’ using random weights.")
+        print("No SafeTensors uploaded → using random weights.")
     target_layer = _find_last_conv(model)
     return LoadedModel(model=model, kind="custom_architecture", target_layer=target_layer, categories=None) 
 
@@ -633,7 +645,7 @@ def run_xai(model_state, data_file, is_nifti, slice_idx, method, target_class, i
         heat = xai_saliency(model, x, used_target)
     elif method == "Integrated Gradients":
         heat = xai_integrated_gradients(model, x, used_target, steps=ig_steps)
-    elif method == "Gradient Ã— Input":
+    elif method == "Gradient × Input":
         heat = xai_inputxgradient(model, x, used_target)
     elif method == "SmoothGrad":
         heat = xai_smoothgrad(model, x, used_target)
@@ -861,7 +873,7 @@ with gr.Blocks(title="XAI + Evaluation (Medical imaging ready)") as demo:
                             # Gradient-based
                             "Saliency",
                             "Integrated Gradients",
-                            "Gradient Ã— Input",
+                            "Gradient × Input",
                             "SmoothGrad",
                             "VarGrad",
                             "Guided Backpropagation",
@@ -894,10 +906,10 @@ with gr.Blocks(title="XAI + Evaluation (Medical imaging ready)") as demo:
                 preds_json  = gr.Textbox(label="Predictions (Top-5)", lines=10)
                 cache_tuple = gr.State()
         
-        # ðŸ”¹ Dynamically update available XAI methods
+        # 🔹 Dynamically update available XAI methods
         def update_methods(has_gradcam):
             methods = [
-                "Saliency", "Integrated Gradients", "Gradient Ã— Input", "SmoothGrad", "VarGrad",
+                "Saliency", "Integrated Gradients", "Gradient × Input", "SmoothGrad", "VarGrad",
                 "Guided Backpropagation", "Deconvolution",
                 "DeepLIFT", "DeepLIFT SHAP", "Gradient SHAP",
                 "Occlusion", "Feature Ablation", "Shapley Value Sampling"
@@ -952,7 +964,7 @@ with gr.Blocks(title="XAI + Evaluation (Medical imaging ready)") as demo:
                 save_btn = gr.Button("Export report JSON")
                 save_path = gr.File(label="Download report")
 
-        # ðŸ”¹ Toggle which dropdown is visible
+        # 🔹 Toggle which dropdown is visible
         def toggle_metrics(eval_type):
             if eval_type == "Faithfulness":
                 return gr.update(visible=True), gr.update(visible=False)
@@ -1002,13 +1014,14 @@ if __name__ == "__main__":
     if sys.stdout is None:
         sys.stdout = open(os.devnull, "w")
 
-    # Basic logging setup so uvicorn doesnâ€™t crash
+    # Basic logging setup so uvicorn doesn’t crash
     logging.basicConfig(level=logging.INFO)
 
-    # ðŸš€ Launch Gradio safely (quiet=True disables uvicorn logging config)
+    # 🚀 Launch Gradio safely (quiet=True disables uvicorn logging config)
     demo.launch(
         server_name="0.0.0.0",
         server_port=7860,
         quiet=True,            # suppress uvicorn logging setup
-        inbrowser=False        # donâ€™t auto-open browser
+        inbrowser=False,        # don’t auto-open browser
+        share = True
     ) 
